@@ -1,0 +1,139 @@
+syntax on
+set showcmd            " Show (partial) command in status line.
+set ignorecase         " Do case insensitive matching
+set autowrite          " Automatically save before commands like :next and :make
+set hidden             " Hide buffers when they are abandoned
+set mouse=a            " Enable mouse usage (all modes)
+
+filetype on            " Enable type file detection. Vim will be able to try to detect the type of file in use.
+filetype plugin on     " Enable plugins and load plugin for the detected file type.
+filetype indent on     " Load an indent file for the detected file type.
+set number             " Show line numbers
+
+" sets yank (copy) buffer to clipboard (allows mouse copy without line numbers)
+vmap <C-C> "+y
+
+set expandtab          " Use space characters instead of tabs.
+" While searching though a file incrementally highlight matching characters as you type.
+set incsearch
+
+" Override the ignorecase option if searching for capital letters.
+" This will allow you to search specifically for capital letters.
+set smartcase
+" Show matching words / brackets during a search.
+set showmatch
+
+" Use highlighting when doing a search.
+set hlsearch
+
+" Set the commands to save in history default number is 20.
+set history=1000
+" Enable auto completion menu after pressing TAB.
+set wildmenu
+
+" Make wildmenu behave like similar to Bash completion.
+set wildmode=list:longest
+
+" There are certain files that we would never want to edit with Vim.
+" Wildmenu will ignore files with these extensions.
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+
+call plug#begin()
+" List your plugins here
+"Plug 'tpope/vim-sensible'
+Plug 'junegunn/fzf'                             " fuzzy find
+Plug 'junegunn/fzf.vim'                         " fuzzy find
+Plug 'preservim/nerdtree'                       " idk
+Plug 'ziglang/zig.vim'                          " zig tools
+Plug 'prabirshrestha/vim-lsp'                   " lsp
+Plug 'mattn/vim-lsp-settings'                   " easy lsp install                                  
+Plug 'prabirshrestha/asyncomplete.vim'          " lsp 
+Plug 'prabirshrestha/asyncomplete-lsp.vim'      " lsp 
+Plug 'EdenEast/nightfox.nvim'                   " colorscheme
+Plug 'joshdick/onedark.vim'                     " colorscheme
+Plug 'ghifarit53/tokyonight-vim'                " colorscheme
+Plug 'morhetz/gruvbox'                          " colorscheme
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " code completion
+Plug 'mhinz/vim-startify'                       " start screen, recently used files
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+call plug#end()
+
+"
+" colorschemes
+"
+set background=dark "gruvbox
+let g:onedark_config = {
+    \ 'style': 'darker', 
+\}
+set termguicolors
+let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_enable_italic = 1
+"colorscheme nightfox
+"colorscheme terahox
+colorscheme carbonfox
+"colorscheme tokyonight
+"colorscheme onedark
+"colorscheme tokyonight
+"colorscheme gruvbox
+
+"
+" code completion setup
+"
+
+source ~/.vimrc_coc
+let g:coc_global_extensions = ['coc-zls', 'coc-python']
+"
+" keymaps
+"
+let mapleader = ","
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>gf :GFile<CR>
+
+
+if executable('pylsp')
+    " pip install python-lsp-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pylsp',
+        \ 'cmd': {server_info->['pylsp']},
+        \ 'allowlist': ['python'],
+        \ })
+endif
+
+if executable('zls')
+        au User lsp_setup call lsp#register_server({
+                                \ 'name': 'zls',
+                                \ 'cmd': {server_info->['zls']},
+                                \ 'allowlist': ['zig'],
+                                \ })
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+

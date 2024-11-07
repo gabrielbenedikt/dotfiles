@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=SXHKD Agent
+GenericName=keyboard shortcuts
+Comment=
+Exec=/usr/bin/sxhkd &
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true
