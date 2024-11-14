@@ -23,6 +23,8 @@ alias thesaurus='aiksaurus'
 alias lei='leo -l it'
 alias stow='stow --dotfiles -t ~/'
 
+alias cat='batcat --theme=gruvbox-dark --paging=never'
+
 alias ..="cd .."
 alias ...="cd ../.."
 

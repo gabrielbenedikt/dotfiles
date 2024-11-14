@@ -1,0 +1,33 @@
+export FZF_PREVIEW_COLUMNS=$(($(tput cols) / 2)) # half of the terminal width
+export FZF_PREVIEW_LINES=$(tput lines) # full height
+export _KITTEN_ICAT_PLACE=${FZF_PREVIEW_COLUMNS:-64}x${FZF_PREVIEW_LINES}@${FZF_PREVIEW_COLUMNS:-64}x0
+preview_cmd='
+if file --mime-type {} | grep -qF image/; then
+  if [[ $KITTY_WINDOW_ID ]]; then
+    kitten icat --clear --transfer-mode=memory --stdin=no --place=${_KITTEN_ICAT_PLACE} {} > /dev/tty
+  elif command -v chafa > /dev/null; then
+    chafa -s "${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}" {} 
+  elif command -v imgcat > /dev/null; then
+    imgcat -W "${dim%%x*}" -H "${dim##*x}" "$file"
+  else
+    file "$file"
+  fi
+else
+  printf "\\x1b_Ga=d,d=A\\x1b\\\\" && batcat --color=always --style=header,grid --line-range :300 {}
+fi
+'
+export FZF_CTRL_T_OPTS='--ansi --height 100% --layout=reverse --preview-window "right:60%" --preview '"'$preview_cmd'"
+export FZF_DEFAULT_OPTS='--ansi --height 100% --layout=reverse --preview-window "right:60%" --preview '"'$preview_cmd'"
+
+export FZF_COMPLETION_OPTS='--border --info=inline'
+
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
+    vim|vi|nano)  fzf "$@" --preview 'batcat --theme=gruvbox-dark --style=numbers --color=always --line-range :500 {}' ;;
+    *)            fzf --preview 'batcat --theme=gruvbox-dark --style=numbers --color=always --line-range :500 }' "$@" ;;
+  esac
+}
