@@ -326,6 +326,10 @@ toggle do not disturb=none,,Nicht stören umschalten
 _k_friendly_name=Systemeinstellungen
 _launch=Tools,Tools,Systemeinstellungen
 
+[tdrop.desktop]
+_k_friendly_name=tdrop -m -a -r -w -4 -y 1 kitty
+_launch=F12,none,tdrop -m -a -r -w -4 -y 1 kitty
+
 [wacomtablet]
 Map to fullscreen=Meta+Ctrl+F,Meta+Ctrl+F,Bildschirmfüllend abbilden
 Map to screen 1=Meta+Ctrl+1,Meta+Ctrl+1,Auf Bildschirm 1 abbilden
