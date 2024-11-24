@@ -25,6 +25,10 @@ alias stow='stow --dotfiles -t ~/'
 
 alias cat='batcat --theme=gruvbox-dark --paging=never'
 
+#use kitten ssh when termianl is kitty
+if [ $TERM = xterm-kitty ]; then
+    alias ssh='kitten ssh'
+fi
 alias ..="cd .."
 alias ...="cd ../.."
 
