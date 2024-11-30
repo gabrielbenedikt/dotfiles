@@ -10,34 +10,30 @@ filetype plugin on     " Enable plugins and load plugin for the detected file ty
 filetype indent on     " Load an indent file for the detected file type.
 set number             " Show line numbers
 
+"
+" keymaps
+"
+let mapleader = ","
+nmap  <Enter>
+vmap  <Enter>
+imap  <Enter>
+cmap  <Enter>
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>gf :GFile<CR>
 " sets yank (copy) buffer to clipboard (allows mouse copy without line numbers)
 vmap <C-C> "+y
-
-set expandtab          " Use space characters instead of tabs.
-" While searching though a file incrementally highlight matching characters as you type.
-set incsearch
-
-" Override the ignorecase option if searching for capital letters.
-" This will allow you to search specifically for capital letters.
-set smartcase
-" Show matching words / brackets during a search.
+set expandtab           " Use space characters instead of tabs.
+set incsearch           " While searching though a file incrementally highlight matching characters as you type.
+set smartcase           " Override the ignorecase option if searching for capital letters  This will allow you to search specifically for capital letters.
 set showmatch
+set hlsearch            " Use highlighting when doing a search.
+set history=1000        " Set the commands to save in history default number is 20.
+set wildmenu            " Enable auto completion menu after pressing TAB.
 
-" Use highlighting when doing a search.
-set hlsearch
-
-" Set the commands to save in history default number is 20.
-set history=1000
-" Enable auto completion menu after pressing TAB.
-set wildmenu
-
-" Make wildmenu behave like similar to Bash completion.
-set wildmode=list:longest
-
+set wildmode=list:longest       " Make wildmenu behave like similar to Bash completion.
 " There are certain files that we would never want to edit with Vim.
 " Wildmenu will ignore files with these extensions.
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
-
 call plug#begin()
 " List your plugins here
 "Plug 'tpope/vim-sensible'
@@ -87,9 +83,12 @@ let g:coc_global_extensions = ['coc-zls', 'coc-python']
 " keymaps
 "
 let mapleader = ","
+nmap  <Enter>
+vmap  <Enter>
+imap  <Enter>
+cmap  <Enter>
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>gf :GFile<CR>
-
 
 if executable('pylsp')
     " pip install python-lsp-server
