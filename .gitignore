@@ -1,2 +1,2 @@
-tmux/dot-config/plugins/*
-!tmux/dot-config/plugins/tpm
+tmux/dot-config/tmux/plugins/*
+!tmux/dot-config/tmux/plugins/tpm
