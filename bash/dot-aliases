@@ -24,7 +24,9 @@ alias lei='leo -l it'
 alias stow='stow --dotfiles -t ~/'
 
 alias cat='batcat --theme=gruvbox-dark --paging=never'
-
+alias grep='rg'
+alias cd='z'
+alias find='fd'
 #use kitten ssh when termianl is kitty
 if [ $TERM = xterm-kitty ]; then
     alias ssh='kitten ssh'
