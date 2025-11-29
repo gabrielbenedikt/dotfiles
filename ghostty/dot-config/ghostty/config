@@ -52,4 +52,4 @@ theme = Carbonfox
 #theme = Nightfox
 #theme = TokyoNight
 
-keybind = global:F9=toggle_quick_terminal
+keybind = global:F12=toggle_quick_terminal
