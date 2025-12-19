@@ -53,3 +53,5 @@ theme = Carbonfox
 #theme = TokyoNight
 
 keybind = global:F12=toggle_quick_terminal
+quick-terminal-size = 50%,100%
+quick-terminal-position = top
