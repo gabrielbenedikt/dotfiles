@@ -28,6 +28,7 @@ alias cat='batcat --theme=gruvbox-dark --paging=never'
 alias find='fd'
 alias grep='rg'
 alias cd='z'
+alias ls='eza --git'
 #use kitten ssh when termianl is kitty
 if [ $TERM = xterm-kitty ]; then
     alias ssh='kitten ssh'

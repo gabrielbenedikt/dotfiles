@@ -118,3 +118,7 @@ export PATH="$PATH:$HOME/.zvm/bin"
 export PATH="$PATH:$ZVM_INSTALL/"
 
 eval "$(zoxide init bash)"
+
+# opencode
+export PATH=/home/gabrielb/.opencode/bin:$PATH
+
