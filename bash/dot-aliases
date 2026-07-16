@@ -33,6 +33,9 @@ alias ls='eza --git'
 if [ $TERM = xterm-kitty ]; then
     alias ssh='kitten ssh'
 fi
+
+# glow theming does not support expanding ~
+alias glow='glow -s ~/.config/glow/gruvbox-dark.json'
 alias ..="cd .."
 alias ...="cd ../.."
 
