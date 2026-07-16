@@ -102,13 +102,7 @@ xset b off
 xset b 0 0 0
 export PATH="${HOME}/.bin:${PATH}"
 
-# Load the shell dotfiles, and then some:
-# * ~/.path can be used to extend `$PATH`.
-# * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{bashrc_local,aliases,functions,fzf_functions}; do
-	[ -r "$file" ] && [ -f "$file" ] && source "$file";
-done;
-unset file;
+
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
@@ -118,7 +112,16 @@ export PATH="$PATH:$HOME/.zvm/bin"
 export PATH="$PATH:$ZVM_INSTALL/"
 
 eval "$(zoxide init bash)"
-
+eval "$(glow completion bash)"
 # opencode
 export PATH=/home/gabrielb/.opencode/bin:$PATH
 
+export PYTHONWARNINGS="ignore::PyGIDeprecationWarning"
+
+# Load the shell dotfiles, and then some:
+# * ~/.path can be used to extend `$PATH`.
+# * ~/.extra can be used for other settings you don’t want to commit.
+for file in ~/.{bashrc_local,aliases,functions,fzf_functions}; do
+	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
