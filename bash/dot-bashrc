@@ -118,10 +118,13 @@ export PATH=/home/gabrielb/.opencode/bin:$PATH
 
 export PYTHONWARNINGS="ignore::PyGIDeprecationWarning"
 
+# opencode
+export PATH=/home/peter/.opencode/bin:$PATH
+
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{bashrc_local,aliases,functions,fzf_functions}; do
+for file in ~/.{bashrc_local,functions,fzf_functions,aliases}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
